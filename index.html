@@ -50,7 +50,7 @@
       color: #00796b;
     }
 
-    /* 変化後のスタイル */
+    /* パニックモード */
     .panic-mode {
       background-color: #000000 !important;
       color: #ff0000 !important;
@@ -76,30 +76,68 @@
       0%, 100% { opacity: 1; }
       50% { opacity: 0.2; }
     }
+
+    #backButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffffff;
+      color: #ff0000;
+      border: 2px solid #ff0000;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 1000;
+      display: none;
+    }
+
+    #backButton:hover {
+      background-color: #ff0000;
+      color: white;
+    }
   </style>
 </head>
 <body>
-  <h1>ようこそ!</h1>
-  <div class="card">
-    <p><span class="label">名前:</span> 3010</p>
-    <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
-    <p><span class="label">趣味:</span> 睡眠,ゲーム,アニメ鑑賞</p>
+  <div id="main-content">
+    <h1>ようこそ!</h1>
+    <div class="card">
+      <p><span class="label">名前:</span> 3010</p>
+      <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
+      <p><span class="label">趣味:</span> 睡眠、ゲーム、アニメ鑑賞</p>
+    </div>
   </div>
 
-  <script>
-    // 60秒後に画面切り替え
-    setTimeout(() => {
-      document.body.className = 'panic-mode';
-      document.body.innerHTML = '';
+  <button id="backButton" onclick="restoreOriginal()">元に戻す</button>
 
-      // 大量の「実験やりたくない」を表示
+  <script>
+    let originalHTML = document.body.innerHTML;
+    let isPanicMode = false;
+
+    // 60秒後に切り替え
+    setTimeout(() => {
+      enterPanicMode();
+    }, 60000);
+
+    // 20秒後に戻るボタン表示（=切り替え後から20秒 = トータル80秒）
+    setTimeout(() => {
+      if (isPanicMode) {
+        document.getElementById("backButton").style.display = "block";
+      }
+    }, 80000);
+
+    function enterPanicMode() {
+      isPanicMode = true;
+      document.body.className = 'panic-mode';
+      document.body.innerHTML = ''; // 一旦全削除
       for (let i = 0; i < 100; i++) {
         const p = document.createElement('div');
         p.className = 'panic-text';
         p.textContent = '実験やりたくない';
         document.body.appendChild(p);
       }
-    }, 60000); // 60000ms = 60秒
-  </script>
-</body>
-</html>
+
+      // 戻るボタンも再追加（bodyが上書きされたので）
+      const btn = document.createElement('button');
+      btn.id = "backButton";
+      btn.te
