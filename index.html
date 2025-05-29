@@ -5,25 +5,20 @@
   <title>私の最初のホームページ</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: #e0f7fa;
       color: #333333;
       font-family: "Helvetica Neue", Arial, sans-serif;
       text-align: center;
       padding: 50px;
-      animation: fadeIn 1.5s ease-in;
-      transition: all 2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      transition: all 1s ease;
     }
 
     h1 {
       font-size: 3em;
       color: #00796b;
       margin-bottom: 20px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     }
 
     .card {
@@ -33,11 +28,6 @@
       max-width: 500px;
       margin: 0 auto;
       padding: 30px;
-      transition: transform 0.3s;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
     }
 
     p {
@@ -51,49 +41,55 @@
     }
 
     /* パニックモード */
-    .panic-mode {
+    body.panic-mode {
       background-color: #000000 !important;
       color: #ff0000 !important;
-      font-size: 2em;
-      text-align: center;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      height: 100vh;
-      overflow: hidden;
     }
 
     .panic-text {
-      width: 100%;
-      text-align: center;
+      font-size: 2em;
       animation: flash 1s infinite;
+      width: 100%;
     }
 
     @keyframes flash {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
+      50% { opacity: 0.3; }
     }
 
-    #backButton {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #ffffff;
-      color: #ff0000;
-      border: 2px solid #ff0000;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      z-index: 1000;
+    #panic-container {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    body.panic-mode #panic-container {
+      display: flex;
+    }
+
+    body.panic-mode #main-content {
       display: none;
     }
 
+    #backButton {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: white;
+      color: red;
+      border: 2px solid red;
+      border-radius: 10px;
+      font-size: 1em;
+      z-index: 999;
+      cursor: pointer;
+    }
+
     #backButton:hover {
-      background-color: #ff0000;
+      background-color: red;
       color: white;
     }
   </style>
@@ -102,42 +98,42 @@
   <div id="main-content">
     <h1>ようこそ!</h1>
     <div class="card">
-      <p><span class="label">名前:</span> 3010</p>
-      <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
-      <p><span class="label">趣味:</span> 睡眠,ゲーム,アニメ鑑賞</p>
+      <p><span class="label">名前:</span> 山田 太郎</p>
+      <p><span class="label">学部学科:</span> 情報工学部 情報システム学科</p>
+      <p><span class="label">趣味:</span> プログラミング、アニメ鑑賞、旅行</p>
     </div>
   </div>
 
+  <div id="panic-container"></div>
   <button id="backButton" onclick="restoreOriginal()">元に戻す</button>
 
   <script>
-    let originalHTML = document.body.innerHTML;
-    let isPanicMode = false;
-
-    // 60秒後に切り替え
-    setTimeout(() => {
-      enterPanicMode();
-    }, 10000);
-
-    // 20秒後に戻るボタン表示（=切り替え後から20秒 = トータル80秒）
-    setTimeout(() => {
-      if (isPanicMode) {
-        document.getElementById("backButton").style.display = "block";
-      }
-    }, 20000);
-
     function enterPanicMode() {
-      isPanicMode = true;
-      document.body.className = 'panic-mode';
-      document.body.innerHTML = ''; // 一旦全削除
+      // 背景と文字色切り替え
+      document.body.classList.add('panic-mode');
+
+      // たくさんの「実験やりたくない」を生成
+      const container = document.getElementById("panic-container");
+      container.innerHTML = ""; // 念のため初期化
       for (let i = 0; i < 100; i++) {
-        const p = document.createElement('div');
-        p.className = 'panic-text';
-        p.textContent = '実験やりたくない';
-        document.body.appendChild(p);
+        const div = document.createElement('div');
+        div.className = 'panic-text';
+        div.textContent = '実験やりたくない';
+        container.appendChild(div);
       }
 
-      // 戻るボタンも再追加（bodyが上書きされたので）
-      const btn = document.createElement('button');
-      btn.id = "backButton";
-      btn.te
+      // 20秒後に戻すボタン表示
+      setTimeout(() => {
+        document.getElementById("backButton").style.display = "block";
+      }, 20000);
+    }
+
+    function restoreOriginal() {
+      location.reload(); // 初期状態に戻す
+    }
+
+    // 60秒後に発動
+    setTimeout(enterPanicMode, 10000);
+  </script>
+</body>
+</html>
