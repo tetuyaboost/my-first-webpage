@@ -11,6 +11,7 @@
       text-align: center;
       padding: 50px;
       animation: fadeIn 1.5s ease-in;
+      transition: all 2s ease;
     }
 
     @keyframes fadeIn {
@@ -48,6 +49,33 @@
       font-weight: bold;
       color: #00796b;
     }
+
+    /* 変化後のスタイル */
+    .panic-mode {
+      background-color: #000000 !important;
+      color: #ff0000 !important;
+      font-size: 2em;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .panic-text {
+      width: 100%;
+      text-align: center;
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
   </style>
 </head>
 <body>
@@ -57,5 +85,21 @@
     <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
     <p><span class="label">趣味:</span> 睡眠,ゲーム,アニメ鑑賞</p>
   </div>
+
+  <script>
+    // 60秒後に画面切り替え
+    setTimeout(() => {
+      document.body.className = 'panic-mode';
+      document.body.innerHTML = '';
+
+      // 大量の「実験やりたくない」を表示
+      for (let i = 0; i < 100; i++) {
+        const p = document.createElement('div');
+        p.className = 'panic-text';
+        p.textContent = '実験やりたくない';
+        document.body.appendChild(p);
+      }
+    }, 60000); // 60000ms = 60秒
+  </script>
 </body>
 </html>
