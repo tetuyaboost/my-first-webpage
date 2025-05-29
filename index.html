@@ -2,28 +2,60 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>私の二度目のホームページ</title>
+  <title>私の最初のホームページ</title>
   <style>
     body {
       background-color: #e0f7fa;
       color: #333333;
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      animation: fadeIn 1.5s ease-in;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     h1 {
-      font-size: 2em;
-      margin-bottom: 0.5em;
+      font-size: 3em;
+      color: #00796b;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
     p {
-      font-size: 1.2em;
-      margin: 0.3em 0;
+      font-size: 1.3em;
+      margin: 15px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #00796b;
     }
   </style>
 </head>
 <body>
   <h1>ようこそ!</h1>
-  <p><strong>名前:</strong> 岩下航</p>
-  <p><strong>学部学科:</strong> 理工学部 応用情報工学科</p>
-  <p><strong>趣味:</strong> 睡眠</p>
+  <div class="card">
+    <p><span class="label">名前:</span> 3010</p>
+    <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
+    <p><span class="label">趣味:</span> 睡眠,リセマラ</p>
+  </div>
 </body>
 </html>
