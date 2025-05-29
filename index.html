@@ -104,7 +104,7 @@
     <div class="card">
       <p><span class="label">名前:</span> 3010</p>
       <p><span class="label">学部学科:</span> 理工学部 応用情報工学科</p>
-      <p><span class="label">趣味:</span> 睡眠、ゲーム、アニメ鑑賞</p>
+      <p><span class="label">趣味:</span> 睡眠,ゲーム,アニメ鑑賞</p>
     </div>
   </div>
 
@@ -117,14 +117,14 @@
     // 60秒後に切り替え
     setTimeout(() => {
       enterPanicMode();
-    }, 60000);
+    }, 10000);
 
     // 20秒後に戻るボタン表示（=切り替え後から20秒 = トータル80秒）
     setTimeout(() => {
       if (isPanicMode) {
         document.getElementById("backButton").style.display = "block";
       }
-    }, 80000);
+    }, 20000);
 
     function enterPanicMode() {
       isPanicMode = true;
